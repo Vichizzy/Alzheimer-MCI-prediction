@@ -215,6 +215,23 @@ FEATURE_LABELS = {
 }
 
 
+# ── sklearn compatibility patch ────────────────────────────────────────────────
+def _patch_bundle_compat(bundle):
+    """
+    SimpleImputer gained _fill_dtype in sklearn >=1.4. Models trained with
+    older versions are missing it, causing AttributeError on newer deployments.
+    We derive it from statistics_.dtype, which is identical to what fit() sets.
+    """
+    for key in ("full_model", "reduced_model"):
+        try:
+            imputer = bundle[key].named_steps["impute"]
+            if not hasattr(imputer, "_fill_dtype"):
+                imputer._fill_dtype = imputer.statistics_.dtype
+        except Exception:
+            pass
+    return bundle
+
+
 # ── Load bundle ────────────────────────────────────────────────────────────────
 @st.cache_resource(show_spinner="Loading models…")
 def load_bundle():
@@ -224,7 +241,7 @@ def load_bundle():
         os.path.join(os.path.dirname(__file__), "../models/mci_conversion_predictor.joblib"),
     ]:
         if os.path.exists(path):
-            return joblib.load(path)
+            return _patch_bundle_compat(joblib.load(path))
     return None
 
 
