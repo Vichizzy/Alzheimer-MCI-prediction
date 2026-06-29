@@ -1,0 +1,79 @@
+# ── Raw patient data ──────────────────────────────────────────────────────────
+# ADNI raw CSVs (all clinical and imaging data files)
+*.csv
+!saved_models/*.csv
+
+# NACC raw data
+investigator_nacc73.csv
+investigator_nacc*.csv
+
+# R data objects
+*.rda
+*.RData
+*.Rhistory
+
+# Any compressed data archives
+*.zip
+*.tar.gz
+*.gz
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# ── Jupyter Notebooks ─────────────────────────────────────────────────────────
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+profile_default/
+ipython_config.py
+
+# ── IDEs ──────────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ── Misc outputs ──────────────────────────────────────────────────────────────
+*.log
+*.tmp
+
+# Note: .joblib model files in models/ ARE tracked intentionally.
+# They contain only trained model weights, not patient data.
